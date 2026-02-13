@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joe Tour - Passeios</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f4f6f8;
+}
+
+/* --- CAPA DO SITE (HERO SECTION) --- */
+.hero {
+    width: 100%;
+    height: 85vh;
+    /* Substitua 'sua-capa.jpg' pelo caminho da sua imagem de fundo */
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1d/56/54/f4/rua-das-sombrinhas-em.jpg?w=1200&h=900&s=1'); 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+
+.logo-tour {
+    width: 220px; /* Ajuste o tamanho da sua logo aqui */
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    max-width: 700px;
+    line-height: 1.4;
+}
+
+.hero-btn {
+    background: #25D366;
+    color: white;
+    padding: 15px 35px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.hero-btn:hover {
+    background: #1eb954;
+    transform: scale(1.05);
+}
+
+/* --- NAVEGAÇÃO --- */
+nav {
+    background: #023e8a;
+    padding: 15px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #023e8a;
+    font-size: 2rem;
+}
+
+.passeios {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.1);
+    overflow: hidden;
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background-color: #ddd;
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-content h3 {
+    color: #0d6efd;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 10px 0;
+    color: #2d6a4f;
+}
+
+.whatsapp-btn {
+    display: block;
+    background: #25D366;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+/* BOTÃO FLUTUANTE */
+.whatsapp-fixo {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25D366;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.site-btn {
+    display: block;
+    background: #0d6efd;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.6);
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+}
+
+footer {
+    background: #023e8a;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+    <img src="logo.png" alt="Joe Tour Logo" class="logo-tour" onerror="this.style.display='none'">
+    
+    <h1>PASSEI COM A JOE TOUR</h1>
+    <p>Vem viver uma aventura radical em meio às paisagens incríveis de Porto de Galinhas e do litoral Nordestino!</p>
+    
+    <a href="https://wa.me/5571996310068?text=Quero%20reservar%20um%20passeio" class="hero-btn" target="_blank">RESERVE AGORA</a>
+    
+    <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">mais informações</p>
+</section>
+
+<nav>
+    <a href="#">Início</a>
+    <a href="#lista-passeios">Passeios</a>
+    <a href="#">Contato</a>
+</nav>
+
+<div class="container" id="lista-passeios">
+<h2 class="section-title">Passeios Disponíveis</h2>
+
+<div class="passeios">
+
+<script>
+const passeios = [
+ {nome:"Ilha de Santo Aleixo", preco:"150,00", imagem:"https://zkfuntour.com.br/wp-content/uploads/2021/09/passeio-na-ilha-de-santo-aleixo.jpeg"},
+ {nome:"Praia dos Carneiros", preco:"190,00", imagem:"https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0e/91/7b/29.jpg"},
+ {nome:"Maragogi", preco:"160,00", imagem:"https://4trip.com.br/blog/wp-content/uploads/2021/05/caminho-moises-maragogi-mare-baixa.jpeg"},
+ {nome:"Cabo de Santo Agostinho", preco:"120,00", imagem:"https://guiaviajarmelhor.com.br/wp-content/uploads/2016/09/Portal-do-cabo.jpg"},
+ {nome:"Cabo de Santo Agostinho", preco:"120,00", imagem:"https://guiaviajarmelhor.com.br/wp-content/uploads/2016/09/Portal-do-cabo.jpg"},
+ {nome:"Buggy Porto de Galinhas", preco:"450,00", imagem:"BUGGY.png"},
+ {nome:"Quadriciclo", preco:"400,00", imagem:"QUADRI.jpg"},
+ {nome:"Mergulho", preco:"180,00", imagem:"https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2e/c2/1b/91/caption.jpg?w=1200&h=-1&s=1"}
+];
+
+document.write(passeios.map(p => `
+<div class="card">
+    <a href="detalhes.html?nome=${encodeURIComponent(p.nome)}">
+
+    <img src="${p.imagem}" alt="${p.nome}" style="cursor:pointer;">
+</a>
+
+    <div class="card-content">
+        <h3>${p.nome}</h3>
+        <p class="price">R$ ${p.preco}</p>
+
+        <a class="whatsapp-btn"
+           href="https://wa.me/5571996310068?text=Quero%20comprar%20o%20passeio%20${encodeURIComponent(p.nome)}"
+           target="_blank">
+           Comprar pelo WhatsApp
+        </a>
+
+        <a class="site-btn" href="detalhes.html?nome=${encodeURIComponent(p.nome)}">
+    Comprar no site
+        </a>
+
+    </div>
+</div>
+`).join(""));
+</script>
+
+</div>
+</div>
+
+<a href="https://wa.me/5571996310068" class="whatsapp-fixo" target="_blank">
+    <span>Fale conosco aqui</span>
+</a>
+
+<footer>
+<p>&copy; 2026 - Joe Tour</p>
+<p>Reservas via WhatsApp</p>
+</footer>
+
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <div class="close" onclick="fecharModal()">X</div>
+        <h2 id="modalPasseio"></h2>
+        <p id="modalPreco"></p>
+
+        <input type="text" placeholder="Seu nome">
+        <input type="email" placeholder="Seu email">
+
+        <select>
+            <option>Pix</option>
+            <option>Cartão de Crédito</option>
+            <option>Boleto</option>
+        </select>
+
+        <button onclick="finalizarCompra()">Finalizar Compra</button>
+    </div>
+</div>
+
+<script>
+function abrirModal(passeio, preco) {
+    document.getElementById("modal").style.display = "flex";
+    document.getElementById("modalPasseio").innerText = passeio;
+    document.getElementById("modalPreco").innerText = "Valor: R$ " + preco;
+}
+
+function fecharModal() {
+    document.getElementById("modal").style.display = "none";
+}
+
+function finalizarCompra() {
+    alert("Compra realizada com sucesso! 🎉");
+    fecharModal();
+}
+</script>
+</body>
+</html>

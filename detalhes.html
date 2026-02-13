@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Detalhes do Passeio - Joe Tour</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: #f4f6f8;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 50px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.btn-inicio {
+  display: inline-block;
+  background: linear-gradient(45deg, #023e8a, #0077b6);
+  color: white;
+  padding: 10px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 25px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+.btn-inicio:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.main-img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  color: #023e8a;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #2d6a4f;
+  margin: 15px 0;
+}
+
+.descricao {
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.inputs label {
+  display: block;
+  margin: 15px 0 5px;
+  font-weight: bold;
+  color: #023e8a;
+}
+
+.inputs input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.inputs input:focus {
+  border-color: #0077b6;
+  box-shadow: 0 0 10px rgba(0, 119, 182, 0.3);
+  outline: none;
+}
+
+.total {
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #2d6a4f;
+  text-align: right;
+  transition: color 0.3s;
+}
+
+.btn-primary {
+  width: 100%;
+  background: linear-gradient(135deg, #023e8a, #0077b6);
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* PAGAMENTO BOX */
+.pagamento-box {
+  display: none;
+  margin-top: 25px;
+  padding: 25px;
+  background: #f4f6f8;
+  border-radius: 15px;
+  animation: fadeInUp 0.5s ease forwards;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* OPÇÕES DE PAGAMENTO */
+.pagamento-opcoes {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.btn-secundario,
+.btn-whats {
+  flex: 1;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.3s, box-shadow 0.3s;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.btn-secundario {
+  background: #2d6a4f;
+}
+.btn-secundario:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-whats {
+  background: #25d366;
+}
+.btn-whats:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* PIX CARD */
+.pix-card {
+  display: none;
+  margin-top: 20px;
+  padding: 25px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.pix-card img {
+  width: 220px;
+  margin: 15px 0;
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+.pix-card img:hover {
+  transform: scale(1.05);
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <a href="index.html" class="btn-inicio">Início</a>
+
+  <img id="imagem" class="main-img" alt="Imagem do passeio" />
+
+  <h1 id="nome"></h1>
+  <p class="price" id="preco"></p>
+  <p class="descricao" id="descricao"></p>
+
+  <div class="inputs">
+    <label for="data">Data do passeio</label>
+    <input type="date" id="data" />
+  </div>
+
+  <div class="inputs">
+    <label for="inteiras">Quantidade de inteiras (5 anos ou mais)</label>
+    <input type="number" id="inteiras" min="1" value="1" />
+  </div>
+
+  <div class="inputs">
+    <label for="criancas">Quantidade de crianças (0 a 4 anos) - Gratuito</label>
+    <input type="number" id="criancas" min="0" value="0" />
+  </div>
+
+  <div class="total" id="total">Total: R$ 0,00</div>
+
+  <button onclick="confirmarReserva()" class="btn-primary">Confirmar Reserva</button>
+
+  <!-- Área de pagamento -->
+  <div id="pagamento" class="pagamento-box">
+    <h4>Escolha a forma de pagamento</h4>
+    <div class="pagamento-opcoes">
+      <button onclick="mostrarPix()" class="btn-secundario">Pix</button>
+      <button onclick="pagarWhats()" class="btn-whats">WhatsApp</button>
+    </div>
+
+    <!-- PIX -->
+    <div id="areaPix" class="pix-card">
+      <p>Escaneie o QR Code para pagar via Pix</p>
+      <img id="pixImg" alt="QR Code Pix" />
+      <button onclick="fecharPix()" class="btn-primary" style="margin-top:15px;">Fechar QR Code</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const banco = {
+  "Ilha de Santo Aleixo": {
+    preco: 150,
+    descricao:
+      "Passeio incrível para uma ilha paradisíaca com águas cristalinas e natureza preservada.",
+    imagem:
+      "https://zkfuntour.com.br/wp-content/uploads/2021/09/passeio-na-ilha-de-santo-aleixo.jpeg",
+  },
+  "Praia dos Carneiros": {
+    preco: 190,
+    descricao:
+      "Uma das praias mais bonitas do Brasil com piscinas naturais e mar calmo.",
+    imagem:
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0e/91/7b/29.jpg",
+  },
+  Maragogi: {
+    preco: 160,
+    descricao:
+      "Conhecida como Caribe Brasileiro, com águas transparentes e passeio às galés.",
+    imagem:
+      "https://4trip.com.br/blog/wp-content/uploads/2021/05/caminho-moises-maragogi-mare-baixa.jpeg",
+  },
+  "Cabo de Santo Agostinho": {
+    preco: 120,
+    descricao: "Falésias incríveis, mirantes e praias paradisíacas.",
+    imagem:
+      "https://guiaviajarmelhor.com.br/wp-content/uploads/2016/09/Portal-do-cabo.jpg",
+  },
+  "Buggy Porto de Galinhas": {
+    preco: 450,
+    descricao: "Passeio de buggy pelas principais praias de Porto de Galinhas.",
+    imagem:
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/09/31/c5/59.jpg",
+  },
+  Quadriciclo: {
+    preco: 400,
+    descricao: "Aventura radical em trilhas e paisagens incríveis.",
+    imagem:
+      "https://imagedelivery.net/EafvxYlk8cSUsWEWsetEdQ/6e19a26e-9e20-430e-11c0-b1303f614a00/w=900",
+  },
+  Mergulho: {
+    preco: 180,
+    descricao: "Experiência única de mergulho com acompanhamento profissional.",
+    imagem:
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2e/c2/1b/91/caption.jpg?w=1200",
+  },
+};
+
+// Pega o nome do passeio na URL
+const params = new URLSearchParams(window.location.search);
+const nome = params.get("nome");
+
+// Busca passeio no banco
+const passeio = banco[nome];
+
+// Se não encontrar, mostra erro
+if (!passeio) {
+  document.body.innerHTML =
+    "<h2 style='text-align:center;margin-top:50px;'>Passeio não encontrado</h2>";
+  throw new Error("Passeio não encontrado");
+}
+
+// Inserir dados no HTML
+document.getElementById("nome").innerText = nome;
+document.getElementById("preco").innerText = "R$ " + passeio.preco.toFixed(2).replace(".", ",");
+document.getElementById("descricao").innerText = passeio.descricao;
+document.getElementById("imagem").src = passeio.imagem;
+
+// Inputs e total
+const inputInteiras = document.getElementById("inteiras");
+const inputCriancas = document.getElementById("criancas");
+const inputData = document.getElementById("data");
+const totalDiv = document.getElementById("total");
+const pagamentoBox = document.getElementById("pagamento");
+const areaPix = document.getElementById("areaPix");
+const pixImg = document.getElementById("pixImg");
+
+// Atualiza total
+function atualizarTotal() {
+  const inteiras = parseInt(inputInteiras.value) || 0;
+  const criancas = parseInt(inputCriancas.value) || 0;
+
+  // crianças são gratuitas, só calcula inteiras
+  const total = inteiras * passeio.preco;
+
+  totalDiv.innerText = "Total: R$ " + total.toFixed(2).replace(".", ",");
+}
+inputInteiras.addEventListener("input", atualizarTotal);
+inputCriancas.addEventListener("input", atualizarTotal);
+atualizarTotal();
+
+// Confirmar reserva - exibe opções de pagamento
+function confirmarReserva() {
+  if (!inputData.value) {
+    alert("Por favor, selecione uma data para o passeio.");
+    return;
+  }
+  if ((parseInt(inputInteiras.value) || 0) < 1) {
+    alert("Selecione pelo menos 1 ingresso inteiro.");
+    return;
+  }
+  pagamentoBox.style.display = "block";
+}
+
+// Mostrar QR Code Pix
+function mostrarPix() {
+  const inteiras = parseInt(inputInteiras.value) || 0;
+  const total = inteiras * passeio.preco;
+  const payload = `Pagamento Joe Tour - ${nome} - Total R$ ${total.toFixed(2)}`;
+
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(payload)}`;
+  pixImg.src = qrUrl;
+  areaPix.style.display = "block";
+}
+
+// Fechar Pix
+function fecharPix() {
+  areaPix.style.display = "none";
+}
+
+// Pagar via WhatsApp
+function pagarWhats() {
+  if (!inputData.value) {
+    alert("Por favor, selecione uma data para o passeio.");
+    return;
+  }
+
+  const inteiras = parseInt(inputInteiras.value) || 0;
+  const criancas = parseInt(inputCriancas.value) || 0;
+  const total = (inteiras * passeio.preco).toFixed(2);
+
+  const msg = `Olá! Quero confirmar a reserva:
+Passeio: ${nome}
+Data: ${inputData.value}
+Inteiras (5 anos ou mais): ${inteiras}
+Crianças (0 a 4 anos): ${criancas}
+Total: R$ ${total.replace(".", ",")}`;
+
+  window.open(
+    "https://wa.me/5571996310068?text=" + encodeURIComponent(msg),
+    "_blank"
+  );
+}
+</script>
+</body>
+</html>
